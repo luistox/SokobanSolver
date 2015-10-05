@@ -1,8 +1,9 @@
-#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <fstream>
 #include <utility>
 #include <string>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
