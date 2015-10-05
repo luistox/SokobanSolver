@@ -50,16 +50,14 @@ vector<pair<int,int>> get_adjacent_nodes(pair<int,int> Pos, vector<string> matri
 int main()
 {
 
-
-
     /*sf::RectangleShape shape(sf::Vector2f(40, 40));
     shape.setPosition(10, 20);*/
 
     string STRING;
     string STRINGAUX;
-    vector<std::string> vString;
+    vector<string> vString;
     pair<int, int> D1Pos,GPos;
-    vector<std::pair<int,int>> Explored,Reachable;
+    vector<pair<int,int>> Explored,Reachable,New_Reachable;
     ifstream infile;
     infile.open ("Test2.txt");
     int i = 0;
@@ -76,7 +74,7 @@ int main()
         }
     cout<<STRINGAUX; // Prints our STRING.
     infile.close();
-    for (int x = 0; x<vString[1].size();x++){
+    for (unsigned x = 0; x<vString[1].size();x++){
         for(int y = 0; y<i; y++){
             if(vString[y][x] == 'X'){
 
@@ -95,15 +93,16 @@ int main()
 
     while(D1Pos != GPos){
 
-        Reachable = get_adjacent_nodes(D1Pos,vString,Explored);
+        New_Reachable = get_adjacent_nodes(D1Pos,vString,Explored);
+        Reachable.reserve( Reachable.size() + New_Reachable.size() ); // preallocate memory
+        Reachable.insert( Reachable.end(), New_Reachable.begin(), New_Reachable.end());
         D1Pos = Reachable.back();
         Reachable.pop_back();
         Explored.push_back(D1Pos);
 
     }
 
-
-        for(int i = 0; i < Explored.size(); i++){
+        for(unsigned i = 0; i < Explored.size(); i++){
              cout << Explored[i].first << "  " << Explored[i].second << std::endl;
         }
 
